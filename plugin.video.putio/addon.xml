@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<addon
+    id="plugin.video.putio"
+    version="1.0.0"
+    name="put.io"
+    provider-name="Alper Kanat">
+    <requires>
+        <import addon="xbmc.gui" />
+        <import addon="xbmc.plugin" />
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">A storage service that fetches media for you.</summary>
+        <description lang="en">A storage service that fetches media files (from various sources) and lets you stream them immediately. You need to have an api key and secret in order to use this addon.</description>
+        <platform lang="en">all</platform>
+    </extension>
+</addon>
