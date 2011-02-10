@@ -1,26 +1,23 @@
 # coding: utf-8
 
+import os
 import sys
 
-import xbmcgui
-import xbmcplugin
+import xbmc
 
-thisPlugin = int(sys.argv[1])
+# adding lib to python path (just for simplejson)
+sys.path.append(os.path.join(os.getcwd(), "resources", "lib"))
 
-def createListing():
-    return [
-        "first item",
-        "second item",
-        "third item"
-    ]
+from resources.lib.common import PutIO
+from resources.lib.gui import populateDir
 
-def sendToXbmc(listing):
-    global thisPlugin
-    
-    for item in listing:
-        listItem = xbmcgui.ListItem(item)
-        xbmcplugin.addDirectoryItem(thisPlugin, "", listItem)
-    
-    xbmcplugin.endOfDirectory(thisPlugin)
+pluginUrl = sys.argv[0]
+pluginId = int(sys.argv[1])
+itemId = sys.argv[2].replace("?", "")
 
-sendToXbmc(createListing())
+putio = PutIO(pluginId)
+
+if itemId == "":
+    populateDir(pluginUrl, pluginId, putio.getRootListing())
+else:
+    populateDir(pluginUrl, pluginId, putio.getFolderListing(itemId))
