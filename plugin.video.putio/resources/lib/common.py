@@ -27,13 +27,27 @@ class PutIO(object):
     
     """
     
+    unwantedItemTypes = ("image", "compressed", "pdf", "ms_doc", "swf", "unknown")
+    
     def __init__(self, pluginId):
         self.api_key = xp.getSetting(pluginId, "api_key")
         self.api_secret = xp.getSetting(pluginId, "api_secret")
         self.api = putio.Api(self.api_key, self.api_secret)
     
     def getRootListing(self):
-        return [f for f in self.api.get_items()]
+        items = []
+        
+        for item in self.api.get_items(limit=50):
+            if not item.type in self.unwantedItemTypes:
+                items.append(item)
+        
+        return items
     
     def getFolderListing(self, folderId):
-        return [f for f in self.api.get_items(parent_id=folderId)]
+        items = []
+        
+        for item in self.api.get_items(parent_id=folderId, limit=50, orderby="name_asc"):
+            if not item.type in self.unwantedItemTypes:
+                items.append(item)
+        
+        return items
