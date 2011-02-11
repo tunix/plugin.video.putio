@@ -20,8 +20,6 @@
 import os
 import sys
 
-import xbmc
-
 # adding lib to python path (just for simplejson)
 sys.path.append(os.path.join(os.getcwd(), "resources", "lib"))
 
