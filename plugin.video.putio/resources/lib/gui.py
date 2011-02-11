@@ -30,17 +30,24 @@ def getIcon(fileType):
     return iconMapping.get(fileType, "DefaultFile.png")
 
 def populateDir(pluginUrl, pluginId, listing):
+    downloadItemTypes = ("folder", "movie")
+    
     for item in listing:
         if item.is_dir:
             url = "%s?%s" % (pluginUrl, item.id)
         else:
             url = item.get_stream_url()
         
+        if item.type == "movie":
+            thumbnail = item.screenshot_url
+        else:
+            thumbnail = getIcon(item.type)
+        
         listItem = xg.ListItem(
             item.name,
             item.name,
             getIcon(item.type),
-            getIcon(item.type)
+            thumbnail
         )
         
         xp.addDirectoryItem(
