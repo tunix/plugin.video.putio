@@ -1,0 +1,20 @@
+2010-02-11  Alper Kanat  <alper@put.io>
+
+    * COPYING: added license information
+    * README: added readme information
+    * AUTHORS: added author information
+    * plugin.video.putio/addon.xml: added license information
+    * plugin.video.putio/default.py: added license information, removed
+    unnecessary import line
+    * plugin.video.putio/resources/__init__.py: added license information
+    * plugin.video.putio/resources/lib/__init__.py: added license information
+    * plugin.video.putio/resources/lib/common.py: added license information, 
+    added unwanted item types for excluding in listing
+    * plugin.video.putio/resources/lib/gui.py: added license information, 
+    added downloading item types for adding context menu (TODO), added 
+    thumbnails to movies
+    * plugin.video.putio/resources/settings.xml: added license information
+    * plugin.video.putio/resources/images/error.png: added error image for
+    notifications
+    * plugin.video.putio/resources/lib/download.py: added downloader script
+    for downloading files/folders
