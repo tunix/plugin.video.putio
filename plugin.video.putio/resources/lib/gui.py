@@ -36,10 +36,7 @@ def populateDir(pluginUrl, pluginId, listing):
     downloadItemTypes = ("folder", "movie")
     
     for item in listing:
-        if item.is_dir:
-            url = "%s?%s" % (pluginUrl, item.id)
-        else:
-            url = item.get_stream_url()
+        url = "%s?%s" % (pluginUrl, item.id)
         
         if item.type == "movie":
             thumbnail = item.screenshot_url

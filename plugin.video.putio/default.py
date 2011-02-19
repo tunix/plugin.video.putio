@@ -17,30 +17,37 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
+import os
 import sys
 
+import xbmc
+
 from resources.lib.common import PutIO
+from resources.lib.exceptions import *
 from resources.lib.gui import *
 
 pluginUrl = sys.argv[0]
 pluginId = int(sys.argv[1])
 itemId = sys.argv[2].lstrip("?")
 
-putio = PutIO()
-
-import xbmc
-xbmc.log("GIVEN ITEMID: %s" % itemId)
-
-if itemId:
-    item = putio.getItem(itemId)
+try:
+    putio = PutIO()
     
-    if item.type == "folder":
-        populateDir(pluginUrl, pluginId, putio.getFolderListing(itemId))
-    elif item.type == "movie":
-        xbmc.log("PLAYING MOVIE FILE: %s" % item.name)
-        play(item, subtitle=putio.getSubtitle(item))
+    if itemId:
+        item = putio.getItem(itemId)
+
+        if item.type == "folder":
+            populateDir(pluginUrl, pluginId, putio.getFolderListing(itemId))
+        elif item.type == "movie":
+            play(item, subtitle = putio.getSubtitle(item))
+        else:
+            play(item)
     else:
-        xbmc.log("PLAYING NORMAL FILE %s WITH TYPE %s" % (item.name, item.type))
-        play(item)
-else:
-    populateDir(pluginUrl, pluginId, putio.getRootListing())
+        populateDir(pluginUrl, pluginId, putio.getRootListing())
+except PutioAuthFailureException, e:
+    xbmc.executebuiltin("XBMC.Notification(%s, %s, %d, %s)" % (
+        e.header,
+        e.message,
+        e.duration,
+        os.path.join(os.getcwd(), "resources", "images", "error.png")
+    ))
