@@ -17,8 +17,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
+import xbmc
 import xbmcgui as xg
 import xbmcplugin as xp
+
+__all__ = ("populateDir", "play")
 
 iconMapping = {
     "folder": "DefaultFolder.png",
@@ -58,3 +61,10 @@ def populateDir(pluginUrl, pluginId, listing):
         )
     
     xp.endOfDirectory(pluginId)
+
+def play(item, subtitle=None):
+    player = xbmc.Player()
+    player.play(item.get_stream_url())
+    
+    if subtitle:
+        player.setSubtitles(subtitle)

@@ -17,7 +17,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
-import xbmcplugin as xp
+import os
+
+import xbmcaddon as xa
 
 import putio
 
@@ -27,18 +29,23 @@ class PutIO(object):
     
     """
     
-    unwantedItemTypes = ("image", "compressed", "pdf", "ms_doc", "swf", "unknown")
+    wantedItemTypes = ("folder", "movie", "audio", "unknown", "file")
+    subtitleTypes = ("srt", "sub")
     
-    def __init__(self, pluginId):
-        self.api_key = xp.getSetting(pluginId, "api_key")
-        self.api_secret = xp.getSetting(pluginId, "api_secret")
+    def __init__(self):
+        self.addon = xa.Addon(os.path.basename(os.getcwd()))
+        self.api_key = self.addon.getSetting("api_key")
+        self.api_secret = self.addon.getSetting("api_secret")
         self.api = putio.Api(self.api_key, self.api_secret)
+    
+    def getItem(self, itemId):
+        return self.api.get_items(id=itemId)[0]
     
     def getRootListing(self):
         items = []
         
-        for item in self.api.get_items(limit=50):
-            if not item.type in self.unwantedItemTypes:
+        for item in self.api.get_items(limit=1000):
+            if item.type in self.wantedItemTypes:
                 items.append(item)
         
         return items
@@ -46,8 +53,21 @@ class PutIO(object):
     def getFolderListing(self, folderId):
         items = []
         
-        for item in self.api.get_items(parent_id=folderId, limit=50, orderby="name_asc"):
-            if not item.type in self.unwantedItemTypes:
+        for item in self.api.get_items(parent_id=folderId, limit=1000, orderby="name_asc"):
+            if item.type in self.wantedItemTypes:
                 items.append(item)
         
         return items
+    
+    def getSubtitle(self, item):
+        fileName, extension = os.path.splitext(item.name)
+        
+        for i in self.getFolderListing(item.parent_id):
+            if i.type != "folder":
+                fn, ext = os.path.splitext(i.name)
+                
+                xbmc.log("SEARCHING FOR %s IN %s" % (fileName, i.name))
+                
+                if i.name.find(fileName) != -1 and (ext.lstrip(".") in self.subtitleTypes):
+                    xbmc.log("FOUND SUBTITLE AT: %s" % i.get_stream_url())
+                    return i.get_stream_url()

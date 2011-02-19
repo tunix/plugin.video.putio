@@ -17,22 +17,30 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
-import os
 import sys
 
-# adding lib to python path (just for simplejson)
-sys.path.append(os.path.join(os.getcwd(), "resources", "lib"))
-
 from resources.lib.common import PutIO
-from resources.lib.gui import populateDir
+from resources.lib.gui import *
 
 pluginUrl = sys.argv[0]
 pluginId = int(sys.argv[1])
-itemId = sys.argv[2].replace("?", "")
+itemId = sys.argv[2].lstrip("?")
 
-putio = PutIO(pluginId)
+putio = PutIO()
 
-if itemId == "":
-    populateDir(pluginUrl, pluginId, putio.getRootListing())
+import xbmc
+xbmc.log("GIVEN ITEMID: %s" % itemId)
+
+if itemId:
+    item = putio.getItem(itemId)
+    
+    if item.type == "folder":
+        populateDir(pluginUrl, pluginId, putio.getFolderListing(itemId))
+    elif item.type == "movie":
+        xbmc.log("PLAYING MOVIE FILE: %s" % item.name)
+        play(item, subtitle=putio.getSubtitle(item))
+    else:
+        xbmc.log("PLAYING NORMAL FILE %s WITH TYPE %s" % (item.name, item.type))
+        play(item)
 else:
-    populateDir(pluginUrl, pluginId, putio.getFolderListing(itemId))
+    populateDir(pluginUrl, pluginId, putio.getRootListing())
