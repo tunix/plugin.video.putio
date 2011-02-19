@@ -1,3 +1,13 @@
+2010-02-19  Alper Kanat  <alper@put.io>
+
+    * added subtitle support for playback of movie files. now when a file is
+    selected, a file with the same filename is being searched with a 'sub' or
+    'srt' extension and added to player if available.
+    * added new exception for missing api key/secret
+    * fixed some addons.xml bugs
+    * removed simplejson dependency (you need to create a zip of 
+    plugin.video.putio and add it via XBMC's Install from zip file option)
+
 2010-02-11  Alper Kanat  <alper@put.io>
 
     * COPYING: added license information
