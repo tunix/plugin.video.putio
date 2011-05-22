@@ -1,4 +1,12 @@
-2010-02-19  Alper Kanat  <alper@put.io>
+2011-05-22  Alper KANAT  <alper@put.io>
+
+	* new minor version release: 1.1.1
+	* fixed incorrect changelog dates
+	* omitted the use of getcwd due to request
+	* restructured project root due to Arne Morten Kvarving's (official
+	repository's maintainer) request
+
+2011-02-19  Alper Kanat  <alper@put.io>
 
     * added subtitle support for playback of movie files. now when a file is
     selected, a file with the same filename is being searched with a 'sub' or
@@ -8,7 +16,7 @@
     * removed simplejson dependency (you need to create a zip of 
     plugin.video.putio and add it via XBMC's Install from zip file option)
 
-2010-02-11  Alper Kanat  <alper@put.io>
+2011-02-11  Alper Kanat  <alper@put.io>
 
     * COPYING: added license information
     * README: added readme information
