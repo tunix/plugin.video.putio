@@ -27,13 +27,15 @@ from resources.lib.common import PutIO
 from resources.lib.exceptions import *
 from resources.lib.gui import *
 
+PLUGIN_ID = "plugin.video.putio"
+
 pluginUrl = sys.argv[0]
 pluginId = int(sys.argv[1])
 itemId = sys.argv[2].lstrip("?")
-addon = xa.Addon(pluginId)
+addon = xa.Addon(PLUGIN_ID)
 
 try:
-    putio = PutIO(pluginId)
+    putio = PutIO(addon.getAddonInfo("id"))
     
     if itemId:
         item = putio.getItem(itemId)
