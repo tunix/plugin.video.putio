@@ -33,8 +33,8 @@ class PutIO(object):
     wantedItemTypes = ("folder", "movie", "audio", "unknown", "file")
     subtitleTypes = ("srt", "sub")
     
-    def __init__(self):
-        self.addon = xa.Addon(os.path.basename(os.getcwd()))
+    def __init__(self, pluginId):
+        self.addon = xa.Addon(pluginId)
         self.api_key = self.addon.getSetting("api_key")
         self.api_secret = self.addon.getSetting("api_secret")
         

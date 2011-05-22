@@ -21,6 +21,7 @@ import os
 import sys
 
 import xbmc
+import xbmcaddon as xa
 
 from resources.lib.common import PutIO
 from resources.lib.exceptions import *
@@ -29,9 +30,10 @@ from resources.lib.gui import *
 pluginUrl = sys.argv[0]
 pluginId = int(sys.argv[1])
 itemId = sys.argv[2].lstrip("?")
+addon = xa.Addon(pluginId)
 
 try:
-    putio = PutIO()
+    putio = PutIO(pluginId)
     
     if itemId:
         item = putio.getItem(itemId)
@@ -49,5 +51,5 @@ except PutioAuthFailureException, e:
         e.header,
         e.message,
         e.duration,
-        os.path.join(os.getcwd(), "resources", "images", "error.png")
+        os.path.join(addon.getAddonInfo("path"), "resources", "images", "error.png")
     ))
