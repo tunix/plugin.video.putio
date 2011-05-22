@@ -1,5 +1,7 @@
 2011-05-22  Alper KANAT  <alper@put.io>
 
+    * new minor version release: 1.1.2
+    * fixed a bug (had to hardcode id despite it's in addons.xml :S) 
     * new minor version release: 1.1.1
     * fixed incorrect changelog dates
     * omitted the use of getcwd due to request
