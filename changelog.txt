@@ -1,10 +1,10 @@
 2011-05-22  Alper KANAT  <alper@put.io>
 
-	* new minor version release: 1.1.1
-	* fixed incorrect changelog dates
-	* omitted the use of getcwd due to request
-	* restructured project root due to Arne Morten Kvarving's (official
-	repository's maintainer) request
+    * new minor version release: 1.1.1
+    * fixed incorrect changelog dates
+    * omitted the use of getcwd due to request
+    * restructured project root due to Arne Morten Kvarving's (official
+    repository's maintainer) request
 
 2011-02-19  Alper Kanat  <alper@put.io>
 
@@ -36,3 +36,4 @@
     notifications
     * plugin.video.putio/resources/lib/download.py: added downloader script
     for downloading files/folders
+
