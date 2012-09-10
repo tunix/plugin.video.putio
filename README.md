@@ -1,3 +1,16 @@
+Important Notice
+---------------------------------------
+
+This addon was developed for put.io APIv1. put.io team has recently released
+APIv2 and they are about to pull the plug for old one. Hopefully there is also
+good news! My ex-colleague Aybars Badur has forked this addon and created an
+APIv2 compatible version. You can get it from 
+[here](https://github.com/ybrs/putio-xbmc-v2).
+
+This addon is included in Dharma (10.x) release addons repository but not in latest
+Eden (11.x) release. If the development continues, we'll apply for the new repository.
+
+
 About put.io
 ---------------------------------------
 
