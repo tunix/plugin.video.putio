@@ -3,7 +3,7 @@
 <addon id="plugin.video.putiov2"
     name="put.io"
     version="0.0.3"
-    provider-name="put.io">
+    provider-name="put.io developers">
     <requires>
         <import addon="xbmc.python" version="1.0" />
         <import addon="script.module.simplejson" version="2.0.10" />

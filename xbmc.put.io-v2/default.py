@@ -50,13 +50,15 @@ class PutioAuthFailureException(Exception):
         self.duration = duration
         self.icon = icon
 
+
 def populateDir(pluginUrl, pluginId, listing):    
    
     for item in listing:                        
         if item.screenshot:
             screenshot = item.screenshot
         else:
-            screenshot = item.icon
+            screenshot = os.path.join(addon.getAddonInfo("path"),
+                                      "resources", "images", "mid-folder.png")
 
         url = "%s?%s" % (pluginUrl, item.id)
         listItem = thegui.ListItem(

@@ -1,3 +1,6 @@
+2014-02-28  Burak Sezer  <burak@pilli.com>
+    * Improved subtitle support
+    
 2011-05-22  Alper KANAT  <alper@put.io>
 
     * new minor version release: 1.1.2
