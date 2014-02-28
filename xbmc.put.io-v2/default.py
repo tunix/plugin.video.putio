@@ -82,7 +82,7 @@ def populateDir(pluginUrl, pluginId, listing):
     thexp.endOfDirectory(pluginId)
 
 
-def play(item, subtitle=None):
+def play(item):
     player = xbmc.Player()
     
     if item.screenshot:
@@ -96,12 +96,22 @@ def play(item, subtitle=None):
         screenshot,
         screenshot
     )
-    
+
     listItem.setInfo('video', {'Title': item.name})
     player.play(item.stream_url, listItem)
-    
-    if subtitle:
-        player.setSubtitles(subtitle)
+
+    subtitles = item.subtitle
+    count = 0
+    while not xbmc.Player().isPlaying():
+        xbmc.sleep(1000)
+        count += 1
+        if count > 20:
+            break
+    if xbmc.Player().isPlaying():
+        for subtitle in subtitles:  
+            if os.path.isfile(subtitle):
+                xbmc.Player().setSubtitles(subtitle)
+
 
 class PutioApiHandler(object):
     """
@@ -110,7 +120,6 @@ class PutioApiHandler(object):
     """
     
     wantedItemTypes = ("folder", "movie", "audio", "unknown", "file")
-    subtitleTypes = ("srt", "sub")
     
     def __init__(self, pluginId):        
         self.addon = xa.Addon(pluginId)
@@ -153,14 +162,6 @@ class PutioApiHandler(object):
             items.append(item)        
         return items
     
-    def getSubtitle(self, item):
-        fileName, extension = os.path.splitext(item.name)        
-        for i in self.getFolderListing(item.parent_id, False):
-            if item.content_type != "application/x-directory":
-                fn, ext = os.path.splitext(i.name)                
-                if i.name.find(fileName) != -1 and (ext.lstrip(".") in self.subtitleTypes):
-                    return i.stream_url
-
 try:
     putio = PutioApiHandler(addon.getAddonInfo("id"))
     if itemId:
@@ -168,8 +169,6 @@ try:
         if item.content_type:
             if item.content_type == "application/x-directory":
                 populateDir(pluginUrl, pluginId, putio.getFolderListing(itemId))
-            elif "video" in item.content_type:
-                play(item, subtitle=putio.getSubtitle(item))
             else:
                 play(item)
     else:

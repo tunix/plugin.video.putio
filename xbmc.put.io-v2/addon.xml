@@ -2,8 +2,8 @@
 
 <addon id="plugin.video.putiov2"
     name="put.io"
-    version="0.0.2"
-    provider-name="Aybrs Badur (ybrs)">
+    version="0.0.3"
+    provider-name="put.io">
     <requires>
         <import addon="xbmc.python" version="1.0" />
         <import addon="script.module.simplejson" version="2.0.10" />
@@ -13,7 +13,7 @@
     </extension>
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
-        <summary lang="en">Put.io v2</summary>
+        <summary lang="en">put.io for XBMC</summary>
         <description lang="en">A storage service that fetches media files (from various sources) and lets you stream them immediately. You need to have an api key and secret in order to use this addon.</description>
     </extension>
 </addon>
