@@ -2,14 +2,16 @@
 
 <strings>
     <!-- Setting Categories -->
-    <string id="1000">Put.io settings</string>
+    <string id="1000">Put.io Settings</string>
     
     <!-- Settings -->
-    <string id="2000">API Key</string>
+    <!--<string id="2000">API Key</string>
     <string id="2001">API Secret</string>
-    <string id="2002">Download Directory</string>
-    <string id="2003">Oauth Key</string>
-    <string id="2004">Please visit http://put.io/v2/oauth2/apptoken/26 to get your oauth key</string>
+    -->
+    <!--<string id="2000">Oauth Key</string>-->
+    <string id="2001">Download Directory</string>
+    <!--<string id="2002">Please visit http://put.io/v2/oauth2/apptoken/26 to get your oauth key</string> -->
+
     <!-- Messages -->
     <string id="3001">Authentication Failure</string>
     <string id="3002">Please insert your oauth key settings!</string>
