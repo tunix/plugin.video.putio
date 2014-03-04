@@ -194,12 +194,12 @@ try:
 except PutioAuthFailureException, e:
     addonid = addon.getAddonInfo("id")
     addon = xa.Addon(addonid)
-    uniqueid = addon.getSetting('uniqueid')
-    if not uniqueid:
-        r = requests.get("https://put.io/xbmc/getuniqueid")
-        o = json.loads(r.content)
-        uniqueid = o['id']
-        addon.setSetting("uniqueid", uniqueid)
+    #uniqueid = addon.getSetting('uniqueid')
+    #if not uniqueid:
+    r = requests.get("https://put.io/xbmc/getuniqueid")
+    o = json.loads(r.content)
+    uniqueid = o['id']
+    #addon.setSetting("uniqueid", uniqueid)
 
     oauthtoken = addon.getSetting('oauthkey')
 

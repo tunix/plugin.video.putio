@@ -8,7 +8,7 @@
     <!--<string id="2000">API Key</string>
     <string id="2001">API Secret</string>
     -->
-    <!--<string id="2000">Oauth Key</string>-->
+    <string id="2000">OAuth2 Token</string>
     <string id="2001">Download Directory</string>
     <!--<string id="2002">Please visit http://put.io/v2/oauth2/apptoken/26 to get your oauth key</string> -->
 
