@@ -105,17 +105,19 @@ def play(item):
     listItem.setInfo('video', {'Title': item.name})
     player.play(item.stream_url, listItem)
 
-    subtitles = item.subtitle
-    count = 0
-    while not xbmc.Player().isPlaying():
-        xbmc.sleep(1000)
-        count += 1
-        if count > 20:
-            break
-    if xbmc.Player().isPlaying():
-        for subtitle in subtitles:
-            if os.path.isfile(subtitle):
-                xbmc.Player().setSubtitles(subtitle)
+    #subtitles = item.subtitle
+    #count = 0
+    #while not xbmc.Player().isPlaying():
+    #    xbmc.sleep(1000)
+    #    count += 1
+    #    if count > 20:
+    #        break
+    #if xbmc.Player().isPlaying():
+    #    for subtitle in subtitles:
+    #        if os.path.isfile(subtitle):
+    #            xbmc.Player().setSubtitles(subtitle)
+    #            xbmc.Player().showSubtitles(True)
+
 
 class PutioApiHandler(object):
     """
@@ -166,14 +168,6 @@ class PutioApiHandler(object):
                 continue
             items.append(item)
         return items
-
-    def getSubtitle(self, item):
-        fileName, extension = os.path.splitext(item.name)
-        for i in self.getFolderListing(item.parent_id, False):
-            if item.content_type != "application/x-directory":
-                fn, ext = os.path.splitext(i.name)
-                if i.name.find(fileName) != -1 and (ext.lstrip(".") in self.subtitleTypes):
-                    return i.stream_url
 
 
 # Main program
