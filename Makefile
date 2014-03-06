@@ -1,3 +1,3 @@
 all: zip 
 zip:
-	zip -vr xbmc.put.io-v2.zip xbmc.put.io-v2
+	zip -vr ../plugin.video.putiov2-0.0.3.zip . -x *.git* *.idea*
