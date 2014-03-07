@@ -133,8 +133,8 @@ class PutioApiHandler(object):
         self.oauthkey = self.addon.getSetting("oauthkey").replace('-', '')
         if not self.oauthkey:
             raise PutioAuthFailureException(
-                self.addon.getLocalizedString(3001),
-                self.addon.getLocalizedString(3002)
+                self.addon.getLocalizedString(30001),
+                self.addon.getLocalizedString(30002)
             )
 
         self.apiclient = putio2.Client(self.oauthkey)
