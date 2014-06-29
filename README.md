@@ -22,17 +22,8 @@ downloaded from its repositories.
 Installation
 ---------------------------------------
 
-Just zip this directory and install it via XBMC's related menu.
+Use XBMC's Addon menus to install the addon from official XBMC repositories. For manual
+installation, just zip this directory and use XBMC's relevant menus.
 
-You need to have an api key & secret pair belonging to an active put.io account
-in order to use this addon. After installation, you should go to its settings
-and enter those information into the related fields.
-
-TODO
----------------------------------------
-
-* Download items to the specified folder in settings using wget/curl or some Python lib
-* Download progress bar
-* Fill in audio/video information in listing (API doesn't expose much for now)
-* Search
-* Next/previous in listing
+You need an oAuth2 key to make this addon work properly. Visit [put.io](http://put.io/xbmc)
+to get your key and enter it in addon's configuration.
