@@ -1,20 +1,7 @@
-Important Notice
----------------------------------------
-
-This addon was developed for put.io APIv1. put.io team has recently released
-APIv2 and they are about to pull the plug for old one. Hopefully there is also
-good news! My ex-colleague [Aybars Badur](https://github.com/ybrs) has forked 
-this addon and created an APIv2 compatible version. You can get it from 
-[here](https://github.com/ybrs/putio-xbmc-v2).
-
-This addon is included in Dharma (10.x) release addons repository but not in latest
-Eden (11.x) release. If the development continues, we'll apply for the new repository.
-
-
 About put.io
 ---------------------------------------
 
-[put.io](http://put.io) is a storage service that fetches media files (from various 
+[put.io](http://put.io) is a storage service that fetches media files (from various
 sources) and lets you stream them immediately. You can use it to stream video, listen
 to your music and share your library with friends. Your files are always a few touches
 away within various devices and software.
@@ -49,4 +36,3 @@ TODO
 * Fill in audio/video information in listing (API doesn't expose much for now)
 * Search
 * Next/previous in listing
-
