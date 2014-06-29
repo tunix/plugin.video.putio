@@ -17,17 +17,16 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import json
-import os
 import time
 
 import requests
 
 import sys
-import xbmc
 import xbmcaddon as xa
 import xbmcgui
-import xbmcplugin
-from resources.lib import putio
+from resources.lib.common import PutioApiHandler
+from resources.lib.exceptions import PutioAuthFailureException
+from resources.lib.gui import play, populateDir
 
 PLUGIN_ID = "plugin.video.putio"
 
@@ -35,112 +34,6 @@ pluginUrl = sys.argv[0]
 pluginId = int(sys.argv[1])
 itemId = sys.argv[2].lstrip("?")
 addon = xa.Addon(PLUGIN_ID)
-
-
-class PutioAuthFailureException(Exception):
-    def __init__(self, header, message, duration=10000, icon="error.png"):
-        self.header = header
-        self.message = message
-        self.duration = duration
-        self.icon = icon
-
-
-def populateDir(pluginUrl, pluginId, listing):
-    for item in listing:
-        if item.screenshot:
-            screenshot = item.screenshot
-        else:
-            screenshot = os.path.join(
-                addon.getAddonInfo("path"),
-                "resources",
-                "images",
-                "mid-folder.png"
-            )
-
-        url = "%s?%s" % (pluginUrl, item.id)
-        listItem = xbmcgui.ListItem(
-            item.name,
-            item.name,
-            screenshot,
-            screenshot
-        )
-
-        listItem.setInfo(item.content_type, {
-            'originaltitle': item.name,
-            'title': item.name,
-            'sorttitle': item.name
-        })
-
-        xbmcplugin.addDirectoryItem(
-            pluginId,
-            url,
-            listItem,
-            "application/x-directory" == item.content_type
-        )
-
-    xbmcplugin.endOfDirectory(pluginId)
-
-
-def play(item):
-    player = xbmc.Player()
-
-    if item.screenshot:
-        screenshot = item.screenshot
-    else:
-        screenshot = item.icon
-
-    listItem = xbmcgui.ListItem(
-        item.name,
-        item.name,
-        screenshot,
-        screenshot
-    )
-
-    listItem.setInfo('video', {'Title': item.name})
-    player.play(item.stream_url, listItem)
-
-
-class PutioApiHandler(object):
-    """
-    Class to handle putio api calls for XBMC actions
-    """
-
-    wantedItemTypes = ("folder", "movie", "audio", "unknown", "file")
-    subtitleTypes = ("srt", "sub")
-
-    def __init__(self, pluginId):
-        self.addon = xa.Addon(pluginId)
-        self.oauthkey = self.addon.getSetting("oauthkey").replace('-', '')
-
-        if not self.oauthkey:
-            raise PutioAuthFailureException(
-                self.addon.getLocalizedString(30001),
-                self.addon.getLocalizedString(30002)
-            )
-
-        self.apiclient = putio.Client(self.oauthkey)
-
-    def getItem(self, itemId):
-        return self.apiclient.File.GET(itemId)
-
-    def getRootListing(self):
-        items = []
-
-        for item in self.apiclient.File.list(parent_id=0):
-            items.append(item)
-
-        return items
-
-    def getFolderListing(self, folderId, isItemFilterActive=True):
-        items = []
-
-        for item in self.apiclient.File.list(parent_id=folderId):
-            if isItemFilterActive:
-                continue
-
-            items.append(item)
-
-        return items
 
 
 # Main program

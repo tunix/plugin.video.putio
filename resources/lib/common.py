@@ -24,7 +24,7 @@ import xbmcaddon as xa
 from exceptions import PutioAuthFailureException
 
 
-class PutIO(object):
+class PutioApiHandler(object):
     """
     Class to handle putio api calls for XBMC actions
 
@@ -35,35 +35,34 @@ class PutIO(object):
 
     def __init__(self, pluginId):
         self.addon = xa.Addon(pluginId)
-        self.api_key = self.addon.getSetting("api_key")
-        self.api_secret = self.addon.getSetting("api_secret")
+        self.oauthkey = self.addon.getSetting("oauthkey").replace('-', '')
 
-        if not self.api_key or not self.api_secret:
+        if not self.oauthkey:
             raise PutioAuthFailureException(
-                self.addon.getLocalizedString(3001),
-                self.addon.getLocalizedString(3002)
+                self.addon.getLocalizedString(30001),
+                self.addon.getLocalizedString(30002)
             )
 
-        self.api = putio.Api(self.api_key, self.api_secret)
+        self.apiclient = putio.Client(self.oauthkey)
 
     def getItem(self, itemId):
-        return self.api.get_items(id=itemId)[0]
+        return self.apiclient.File.GET(itemId)
 
     def getRootListing(self):
         items = []
 
-        for item in self.api.get_items(limit=1000):
-            if item.type in self.wantedItemTypes:
-                items.append(item)
+        for item in self.apiclient.File.list(parent_id=0):
+            items.append(item)
 
         return items
 
     def getFolderListing(self, folderId, isItemFilterActive=True):
         items = []
 
-        for item in self.api.get_items(parent_id=folderId, limit=1000, orderby="name_asc"):
-            if isItemFilterActive and (item.type not in self.wantedItemTypes):
+        for item in self.apiclient.File.list(parent_id=folderId):
+            if isItemFilterActive:
                 continue
+
             items.append(item)
 
         return items

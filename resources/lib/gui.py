@@ -17,52 +17,69 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
+import os
+
 import xbmc
-import xbmcgui as xg
-import xbmcplugin as xp
+import xbmcaddon as xa
+import xg as xg
+import xp as xp
+from resources import PLUGIN_ID
 
 __all__ = ("populateDir", "play")
 
-iconMapping = {
-    "folder": "DefaultFolder.png",
-    "movie": "DefaultVideo.png",
-    "audio": "DefaultAudio.png"
-}
-
-
-def getIcon(fileType):
-    return iconMapping.get(fileType, "DefaultFile.png")
+addon = xa.Addon(PLUGIN_ID)
 
 
 def populateDir(pluginUrl, pluginId, listing):
     for item in listing:
-        url = "%s?%s" % (pluginUrl, item.id)
-
-        if item.type == "movie":
-            thumbnail = item.screenshot_url
+        if item.screenshot:
+            screenshot = item.screenshot
         else:
-            thumbnail = getIcon(item.type)
+            screenshot = os.path.join(
+                addon.getAddonInfo("path"),
+                "resources",
+                "images",
+                "mid-folder.png"
+            )
 
+        url = "%s?%s" % (pluginUrl, item.id)
         listItem = xg.ListItem(
             item.name,
             item.name,
-            getIcon(item.type),
-            thumbnail
+            screenshot,
+            screenshot
         )
+
+        listItem.setInfo(item.content_type, {
+            'originaltitle': item.name,
+            'title': item.name,
+            'sorttitle': item.name
+        })
 
         xp.addDirectoryItem(
             pluginId,
             url,
             listItem,
-            item.is_dir
+            "application/x-directory" == item.content_type
         )
 
     xp.endOfDirectory(pluginId)
 
 
-def play(item, subtitle=None):
+def play(item):
     player = xbmc.Player()
-    player.play(item.get_stream_url())
 
-    if subtitle:
-        player.setSubtitles(subtitle)
+    if item.screenshot:
+        screenshot = item.screenshot
+    else:
+        screenshot = item.icon
+
+    listItem = xg.ListItem(
+        item.name,
+        item.name,
+        screenshot,
+        screenshot
+    )
+
+    listItem.setInfo('video', {'Title': item.name})
+    player.play(item.stream_url, listItem)
