@@ -28,7 +28,6 @@ from urllib import urlencode
 import requests
 
 import iso8601
-import xbmc
 
 logger = logging.getLogger(__name__)
 
@@ -209,26 +208,7 @@ class _File(_BaseResource):
 
     @property
     def subtitle(self):
-        response = self.client.request('/files/%s/subtitles' % self.id)
-        items = response['subtitles']
-        subtitles = []
-
-        for item in items:
-            r = self.client.request(
-                '/files/%s/subtitles/%s' % (
-                    self.id,
-                    item['key']
-                ),
-                raw=True
-            )
-            dest = xbmc.translatePath('special://temp/%s' % item['name'])
-            subtitles.append(dest)
-
-            with open(dest, 'wb') as file_:
-                for data in r.iter_content():
-                    file_.write(data)
-
-        return subtitles
+        return self.client.request('/files/%s/subtitles' % self.id)
 
 
 class _Transfer(_BaseResource):

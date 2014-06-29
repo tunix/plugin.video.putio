@@ -47,7 +47,7 @@ def main():
             if item.content_type == "application/x-directory":
                 populateDir(pluginUrl, pluginId, putio.getFolderListing(itemId))
             else:
-                play(item)
+                play(item, putio.getSubtitle(item))
     else:
         populateDir(pluginUrl, pluginId, putio.getRootListing())
 

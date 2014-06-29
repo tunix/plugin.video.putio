@@ -20,6 +20,7 @@
 import os
 
 import putio
+import xbmc
 import xbmcaddon as xa
 from exceptions import PutioAuthFailureException
 
@@ -64,11 +65,26 @@ class PutioApiHandler(object):
         return items
 
     def getSubtitle(self, item):
-        fileName, extension = os.path.splitext(item.name)
+        subtitles = item.subtitle
+        default = subtitles.get("default")
 
-        for i in self.getFolderListing(item.parent_id, False):
-            if i.type != "folder":
-                fn, ext = os.path.splitext(i.name)
+        if not default:
+            print "Couldn't find any subtitles for: %s" % item.name
+            return
 
-                if i.name.find(fileName) != -1 and (ext.lstrip(".") in self.subtitleTypes):
-                    return i.get_stream_url()
+        print "Found subtitle for %s, retrieving.." % item.name
+
+        r = item.client.request(
+            '/files/%s/subtitles/%s' % (
+                item.id,
+                default
+            ),
+            raw=True
+        )
+        dest = xbmc.translatePath('special://temp/%s' % item.name)
+
+        with open(dest, 'wb') as f:
+            for data in r.iter_content():
+                f.write(data)
+
+        return dest

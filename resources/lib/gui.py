@@ -66,7 +66,7 @@ def populateDir(pluginUrl, pluginId, listing):
     xp.endOfDirectory(pluginId)
 
 
-def play(item):
+def play(item, subtitle=None):
     player = xbmc.Player()
 
     if item.screenshot:
@@ -83,3 +83,7 @@ def play(item):
 
     listItem.setInfo('video', {'Title': item.name})
     player.play(item.stream_url, listItem)
+
+    if subtitle:
+        print "Adding subtitle to player!"
+        player.setSubtitles(subtitle)
