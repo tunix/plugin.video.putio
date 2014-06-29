@@ -30,7 +30,6 @@ class PutioApiHandler(object):
 
     """
 
-    wantedItemTypes = ("folder", "movie", "audio", "unknown", "file")
     subtitleTypes = ("srt", "sub")
 
     def __init__(self, pluginId):
