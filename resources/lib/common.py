@@ -55,13 +55,10 @@ class PutioApiHandler(object):
 
         return items
 
-    def getFolderListing(self, folderId, isItemFilterActive=True):
+    def getFolderListing(self, folderId):
         items = []
 
         for item in self.apiclient.File.list(parent_id=folderId):
-            if isItemFilterActive:
-                continue
-
             items.append(item)
 
         return items
