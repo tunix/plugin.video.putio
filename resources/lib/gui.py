@@ -21,8 +21,8 @@ import os
 
 import xbmc
 import xbmcaddon as xa
-import xg as xg
-import xp as xp
+import xbmcgui as xg
+import xbmcplugin as xp
 from resources import PLUGIN_ID
 
 __all__ = ("populateDir", "play")
