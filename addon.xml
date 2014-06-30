@@ -2,7 +2,7 @@
 
 <addon id="plugin.video.putio"
     name="put.io"
-    version="1.2.0"
+    version="1.2.1"
     provider-name="Alper Kanat (tunix@raptiye.org)">
     <requires>
         <import addon="xbmc.python" version="2.14.0" />

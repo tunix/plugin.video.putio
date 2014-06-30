@@ -1,3 +1,8 @@
+2014-06-30  Alper Kanat  <tunix@raptiye.org>
+
+	* updated to gotham release & added some missing metadata
+	* updated version to 1.2.1
+
 2014-06-29  Alper Kanat  <tunix@raptiye.org>
 
 	* Merged forked code from put.io's repository
