@@ -82,8 +82,8 @@ def play(item, subtitle=None):
     )
 
     listItem.setInfo('video', {'Title': item.name})
-    player.play(item.stream_url, listItem)
-
     if subtitle:
-        print "Adding subtitle to player!"
-        player.setSubtitles(subtitle)
+        print "Adding subtitle to listItem!"
+        listItem.setSubtitles([subtitle])
+
+    player.play(item.stream_url, listItem)
